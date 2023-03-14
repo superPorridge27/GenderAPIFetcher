@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Genderize API</title>
+</head>
+<body>
+  <h1>Genderize API</h1>
+  <!-- Prompt the user to enter a name -->
+  <label for="name-input">Enter a name:</label>
+  <input type="text" id="name-input" name="name">
+  <!-- Call the fetchData function when the Submit button is clicked -->
+  <button onclick="fetchData()">Submit</button><br>
+  <!-- Show the results of the API request in these HTML elements -->
+  <div id="results">
+    <p>Name: <span id="name-output"></span></p>
+    <p>Gender: <span id="gender-output"></span></p>
+    <p>Probability: <span id="probability-output"></span></p>
+    <p>Count: <span id="count-output"></span></p>
+  </div>
+
+  <script>
+    function fetchData() {
+      // Get the user input from the input field
+      const inputName = document.getElementById("name-input").value;
+
+      // Make the API request with the inputName as parameter
+      fetch(`https://api.genderize.io/?name=${inputName}`)
+              .then(response => response.json()) // Convert response to JSON
+              .then(data => {
+                // Access the data and insert it into the HTML elements
+                document.getElementById("name-output").innerHTML = data.name;
+                document.getElementById("gender-output").innerHTML = data.gender;
+                document.getElementById("probability-output").innerHTML = data.probability;
+                document.getElementById("count-output").innerHTML = data.count;
+              })
+              .catch(error => console.log(error)); // Catch any errors
+    }
+  </script>
+</body>
+</html>
