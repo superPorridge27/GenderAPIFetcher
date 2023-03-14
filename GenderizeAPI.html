@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Genderize API</title>
+  </head>
+  <body>
+  <h1>Genderize API</h1>
+
+  <!-- Create a text input field to get the user's name input -->
+  <label for="inputName">Enter your name:</label>
+  <input type="text" id="inputName" name="inputName">
+
+  <!-- Create a button to trigger the getGender function -->
+  <button onclick="getGender()">Get gender</button>
+
+  <!-- Create a placeholder for the parsed JSON response -->
+  <pre id="count"> </pre>
+  <pre id="gender"> </pre>
+  <pre id="name"> </pre>
+  <pre id="probability"> </pre>
+
+  <script>
+    function getGender() {
+      // Get the user input from the text input field
+      const inputName = document.getElementById("inputName").value;
+
+      // Create the URL for the genderize API by concatenating the inputName with the API endpoint
+      const url = "https://api.genderize.io/?name=" + inputName;
+
+      // Perform a fetch request to the genderize API
+      fetch(url)
+              .then(response => response.json())
+              .then(data => {
+                // Parse the JSON response and display it in the HTML
+                document.getElementById("count").innerHTML = "Count : " + data.count;
+                document.getElementById("gender").innerHTML = "Gender : " + data.gender;
+                document.getElementById("name").innerHTML = "Name : " + data.name;
+                document.getElementById("probability").innerHTML = "Probability : " + data.probability;
+              })
+              .catch(error => console.error(error));
+    }
+  </script>
+
+  </body>
+</html>
